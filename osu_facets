@@ -1,0 +1,76 @@
+! NOTE! This table should be in UTF-8 !! 
+!
+! Settings for ALEPH OPAC facets.
+! Created by Matyas F. Bajger, University of Ostrava Library, http://library.osu.eu
+! 2016
+!
+! PART I - GENERAL SETTINGS SECTION
+! 
+! COL   1.  - sign of general settings section - always '@' (1 char)
+! COL   2.  - Parameter (12 chars, case sensitive)
+! COL   3.  - Value (unlimited chars)
+!  
+! Possible Parameters and Values are:
+!	bibBase = code of the biblio base, lower case (like 'usm01','lib03' etc.)
+!       bibBasePsswd = Oracle password for the user corresponding to the bibBase
+!       oracleSID = ALEPH Oracle site identifier (if not sure, try command line: >env | grep 'ORACLE_SID' -i )
+!       oracleHost = DNS where Oracle for ALEPH is run
+!                    Use "localhost" value, if Oracle is run on the same machine as ALEPH.
+!       xServerURL = DNS of ALEPH X-server (usually the same as OPAC)
+!       linesImmed = (number/integer) Number of max. lines/values that will be displayed for each facet immediatly.
+!                    If more values for particular facet is found, 
+!                    a link "show more" is added and used for their displaying.
+!       linesTotal = (number/integer) Number of max. lines/values that will be displayed  for each facet after
+!		     clicking on "show more" link (total limit of values for each facet)
+!       showMore = language based setting for link "show more" displaying values/lines above the linesImmed value.
+!                  Syntax:
+!                  Language prefix (3 chars), equal sign and value.
+!                  More language settings separated by semicolon (;). Example:
+!                              eng=Show more;ger=Zeig mehr;cze=Zobrazit více
+!       cancelFilter  = language based setting for link "cancel filter" (added to top of facets' html element
+!                  after clicking on some facet. The link causes cancelling of previous facet filtering.
+!                  Syntax - the same as for "showMore". Example:
+!                              eng=Cancel filters;ger=Filter aufheben;cze=Zrušit filtr   
+
+!
+!1 2           3
+!-!!!!!!!!!!!!-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!... ...
+@ bibBase      usm01
+@ bibBasePsswd usm01
+@ oracleSID    aleph22
+@ oracleHost   localhost
+@ xServerURL   aleph.your.domain
+@ linesImmed   5
+@ linesTotal   25
+@ showMore     eng=Show more;ger=Zeig mehr;cze=Zobrazit více
+@ cancelFilter eng=Cancel filters;ger=Filter aufheben;cze=Zrušit filtr
+!
+!
+!
+! PART II - SETTING OF PARTICULAR FASSETS
+!
+! COL   1.  - code of Access heading used for facet - 3 chars according to tab01.{lng} and tab11_acc
+!
+! COL   2.  - subfields to display / hide (6 chars)
+!             Defined subfields will be shown and used for narrowing searches.
+!             For exclusion of subfields, start with "-" (minus) sign, like "-24" will remove subfields 2 and 4.
+!             This definition can be used for omitting authority identifiers used in headings, but left out in facets.
+!              
+! COL   4.  - order of displayed facet values (1 char, possible values: F D A )
+!             F - sort by amount of records descending (default - if none or other values specified)
+!             D - sort by facet values descending (p.e. for years of publ.)
+!             A - sort by facet values ascending
+!
+! COL   3.  - name of the facets viewed in OPAC. With language prefix (3 chars) and equal sign.
+!             More language settings separated by semicolon (;). Examples:
+!                eng=authors;ger=Authoren;cze=Autori
+!                eng=subject
+!
+!1  2      3 4
+!!!-!!!!!!-!-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!... ...
+AUT -47    F cze=Autoři;eng=Authors
+SUB -27    F cze=Předměty;eng=Subjects
+FGN a      F cze=Žánr;eng=Genre
+FLN a      F cze=Jazyk;eng=Language
+FYR a      D cze=Rok;eng=Year
+FAD a      F cze=Uživatelské určení;eng=Audience

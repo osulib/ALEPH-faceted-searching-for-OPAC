@@ -1,0 +1,180 @@
+!
+! NOTE - 1) do not edit this header section
+!      - 2) this header is created from the template located
+!        in $aleph_headers (sub-folders)
+!      - 3) to add remarks within the table,
+!        start the line with !rem or !*
+!      - 4) to mark a line as non-used (but restorable)
+!        add ! at start of line, retaining column structure
+!        displaced by one position to the right
+!      - 5) all internal codes must be Latin characters A-Z,0-9
+!
+!===========================================================================
+!                         generic_fix
+! This is a sample table of a processing script for fix_doc_do_file_08
+! and p_file_08.
+!===========================================================================
+!
+! Last header change: 25/02/2002
+!
+! HELP
+! END_HELP
+!
+! TABLE_KEY 1
+!
+! COL   1.   1; NUM; ;
+!               Iteration;
+!               The operations are performed in order of Iteration.
+!               Operations in iteration 1 are processed before those
+!               in iteration 2. Within iteration 1, the operations are
+!               processed in the order listed in the script;
+! COL   2.   5; ALPHA_NUM, UPPER; #;
+!               Field tag;
+!               Document record field code. # can be used to indicate
+!               truncation (e.g., 245## for 2451, 2452, 24501);
+! COL   3.   2; ALPHA; ;
+!               Format code;
+!               Record's format code (FMT field). # can be used as a
+!               wildcard. If left blank, no filtering for record format
+!               is performed;
+! COL   4.   1; ALPHA_NUM; ;
+!               First position filter;
+!               First position filter. If the position filter is not blank,
+!               then the operation is performed only if the first position
+!               in the field matches;
+! COL   5.   3; NUM; ;
+!               Position range start;
+!               Position range start. Used for operations on fixed fields
+!               to specify the position range. Note that field positions
+!               are counted started from zero;
+! COL   6.   3; ALPHA_NUM; ;
+!               Position range end;
+!               Position range end. Used for operations on fixed fields
+!               to specify the position range. Note that field positions
+!               are counted started from zero;
+! COL   7.   5; TEXT; ;
+!               Occurrence filter;
+!               Occurrence filter. Contains a five-digit number, or
+!               FIRST, LAST, NOT-F (not first), or NOT-L (not last).;
+! COL   8.  30; TEXT;;
+!               Operation code; ;
+!               Operation code. Following are the valid operation codes,
+!               a full description can be found in the How to Set Up a Script
+!               for the Correction of Records How To document. :
+!               ADD-FIELD
+!               CHANGE-FIELD
+!               CHANGE-FIRST-IND
+!               CHANGE-FIRST-IND-MATCH
+!               CHANGE-SECOND-IND
+!               CHANGE-SECOND-IND-MATCH
+!               CHANGE-SUBFIELD
+!               CONCATENATE-FIELDS
+!               COND-LOAD-VAL-POS
+!               COPY-FIELD
+!               COPY-SYSTEM-NUMBER
+!               DELETE-FIELD
+!               DELETE-FIELD-COND
+!               DELETE-FIXED-COND
+!               DELETE-SUBFIELD
+!               DELETE-SUBFIELD-DELIMITER
+!               EDIT-SUBFIELD-HYPHEN
+!               FIXED-CHANGE-VAL
+!               FIXED-CHANGE-VAL-RANGE
+!               FIXED-FIELD-EXTEND
+!               FIXED-RANGE-OP
+!               REPLACE-STRING
+!               SORT-FIELDS;
+! COL   9. 100; TEXT; ;
+!               Operation parameters;
+!               Operation parameters;
+!
+!   2   3  4  5   6    7                 8                           9
+!-!!!!!-!!-!-!!!-!!!-!!!!!-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!make temporary fields GNR1 from 008/24-27 and modify thier contents
+1 008   BK                 COPY-FIELD                     GNR11,L
+1 GNR11 BK   000 000       FIXED-CHANGE-VAL-RANGE         #,$
+1 GNR11 BK   001 001       FIXED-CHANGE-VAL-RANGE         #,$
+1 GNR11 BK   002 002       FIXED-CHANGE-VAL-RANGE         #,a
+1 GNR11 BK   003 023       FIXED-CHANGE-VAL-RANGE         #,~
+1 GNR11 BK   025 025       FIXED-CHANGE-VAL-RANGE         #,@
+1 GNR11 BK   026 040       FIXED-CHANGE-VAL-RANGE         #,~
+1 008   BK                 COPY-FIELD                     GNR12,L
+1 GNR12 BK   000 000       FIXED-CHANGE-VAL-RANGE         #,$
+1 GNR12 BK   001 001       FIXED-CHANGE-VAL-RANGE         #,$
+1 GNR12 BK   002 002       FIXED-CHANGE-VAL-RANGE         #,a
+1 GNR12 BK   003 024       FIXED-CHANGE-VAL-RANGE         #,~
+1 GNR12 BK   026 026       FIXED-CHANGE-VAL-RANGE         #,@
+1 GNR12 BK   027 040       FIXED-CHANGE-VAL-RANGE         #,~
+1 008   BK                 COPY-FIELD                     GNR13,L
+1 GNR13 BK   000 000       FIXED-CHANGE-VAL-RANGE         #,$
+1 GNR13 BK   001 001       FIXED-CHANGE-VAL-RANGE         #,$
+1 GNR13 BK   002 002       FIXED-CHANGE-VAL-RANGE         #,a
+1 GNR13 BK   003 025       FIXED-CHANGE-VAL-RANGE         #,~
+1 GNR13 BK   027 027       FIXED-CHANGE-VAL-RANGE         #,@
+1 GNR13 BK   028 040       FIXED-CHANGE-VAL-RANGE         #,~
+1 008   BK                 COPY-FIELD                     GNR14,L
+1 GNR14 BK   000 000       FIXED-CHANGE-VAL-RANGE         #,$
+1 GNR14 BK   001 001       FIXED-CHANGE-VAL-RANGE         #,$
+1 GNR14 BK   002 002       FIXED-CHANGE-VAL-RANGE         #,a
+1 GNR14 BK   003 026       FIXED-CHANGE-VAL-RANGE         #,~
+1 GNR14 BK   028 028       FIXED-CHANGE-VAL-RANGE         #,@
+1 GNR14 BK   029 040       FIXED-CHANGE-VAL-RANGE         #,~
+1 GNR1# BK                 REPLACE-STRING                 ~,
+!change contents of GNR1 fields to natural language
+1 GNR1# BK                 REPLACE-STRING                 $$a-@,
+1 GNR1# BK                 REPLACE-STRING                 $$a|@,
+1 GNR1# BK                 REPLACE-STRING                 $$a @,
+1 GNR1# BK                 REPLACE-STRING                 $$aa@,$$areferáty/resumé
+1 GNR1# BK                 REPLACE-STRING                 $$ab@,$$abibliografie
+1 GNR1# BK                 REPLACE-STRING                 $$ac@,$$akatalogy
+1 GNR1# BK                 REPLACE-STRING                 $$ad@,$$aslovníky
+1 GNR1# BK                 REPLACE-STRING                 $$ae@,$$aencyklopedie
+1 GNR1# BK                 REPLACE-STRING                 $$af@,$$apøíruèky
+1 GNR1# BK                 REPLACE-STRING                 $$ag@,$$aprávnické èlánky
+1 GNR1# BK                 REPLACE-STRING                 $$ai@,$$arejstøíky
+1 GNR1# BK                 REPLACE-STRING                 $$aj@,$$apatenty
+1 GNR1# BK                 REPLACE-STRING                 $$ak@,$$adiskografie
+1 GNR1# BK                 REPLACE-STRING                 $$al@,$$alegislativa
+1 GNR1# BK                 REPLACE-STRING                 $$am@,$$akvalifikaèní práce
+1 GNR1# BK                 REPLACE-STRING                 $$an@,$$aliterární pøehledy
+1 GNR1# BK                 REPLACE-STRING                 $$ao@,$$arecenze
+1 GNR1# BK                 REPLACE-STRING                 $$ap@,$$auèebnice
+1 GNR1# BK                 REPLACE-STRING                 $$aq@,$$afilmografie
+1 GNR1# BK                 REPLACE-STRING                 $$ar@,$$aadresáøe
+1 GNR1# BK                 REPLACE-STRING                 $$as@,$$astatistiky
+1 GNR1# BK                 REPLACE-STRING                 $$at@,$$atechnické zprávy
+1 GNR1# BK                 REPLACE-STRING                 $$au@,$$astandardy/specifikace
+1 GNR1# BK                 REPLACE-STRING                 $$av@,$$aprávnické kauzy
+1 GNR1# BK                 REPLACE-STRING                 $$aw@,$$a
+1 GNR1# BK                 REPLACE-STRING                 $$ay@,$$aroèenky
+1 GNR1# BK                 REPLACE-STRING                 $$az@,$$asmlouvy
+1 GNR1# BK                 REPLACE-STRING                 $$a2@,$$aseparáty
+1 GNR1# BK                 REPLACE-STRING                 $$a5@,$$akalendáøe
+1 GNR1# BK                 REPLACE-STRING                 $$a6@,$$akomiksy
+!
+!make temporary field GNR2 from 008/33 and modify its content
+2 008   BK                 COPY-FIELD                     GNR2 ,L
+2 GNR2  BK   000 000       FIXED-CHANGE-VAL-RANGE         #,$
+2 GNR2  BK   001 001       FIXED-CHANGE-VAL-RANGE         #,$
+2 GNR2  BK   002 002       FIXED-CHANGE-VAL-RANGE         #,a
+2 GNR2  BK   003 032       FIXED-CHANGE-VAL-RANGE         #,~
+2 GNR2  BK   034 034       FIXED-CHANGE-VAL-RANGE         #,@
+2 GNR2  BK   035 040       FIXED-CHANGE-VAL-RANGE         #,~
+2 GNR2  BK                 REPLACE-STRING                 ~,
+!change contents of GNR2 field to natural language
+2 GNR2  BK                 REPLACE-STRING                 $$a-@,
+2 GNR2  BK                 REPLACE-STRING                 $$a|@,
+2 GNR2  BK                 REPLACE-STRING                 $$au@,
+2 GNR2  BK                 REPLACE-STRING                 $$a @,
+!value '0' - non fiction, how to say it pretty in Czech?
+2 GNR2  BK                 REPLACE-STRING                 $$a0@,
+2 GNR2  BK                 REPLACE-STRING                 $$a1@,$$abeletrie
+2 GNR2  BK                 REPLACE-STRING                 $$ad@,$$adramata
+2 GNR2  BK                 REPLACE-STRING                 $$ae@,$$aeseje
+2 GNR2  BK                 REPLACE-STRING                 $$af@,$$aromány
+2 GNR2  BK                 REPLACE-STRING                 $$ah@,$$asatiry
+2 GNR2  BK                 REPLACE-STRING                 $$ai@,$$adopisy
+2 GNR2  BK                 REPLACE-STRING                 $$aj@,$$apovídky
+2 GNR2  BK                 REPLACE-STRING                 $$am@,$$asmíšené formy
+2 GNR2  BK                 REPLACE-STRING                 $$ap@,$$apoezie
+2 GNR2  BK                 REPLACE-STRING                 $$as@,$$aprojevy

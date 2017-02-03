@@ -1,0 +1,153 @@
+!
+! NOTE - 1) do not edit this header section
+!      - 2) this header is created from the template located
+!        in $aleph_headers (sub-folders)
+!      - 3) to add remarks within the table,
+!        start the line with !rem or !*
+!      - 4) to mark a line as non-used (but restorable)
+!        add ! at start of line, retaining column structure
+!        displaced by one position to the right
+!      - 5) all internal codes must be Latin characters A-Z,0-9
+!
+!===========================================================================
+!                         generic_fix
+! This is a sample table of a processing script for fix_doc_do_file_08
+! and p_file_08.
+!===========================================================================
+!
+! Last header change: 25/02/2002
+!
+! HELP
+! END_HELP
+!
+! TABLE_KEY 1
+!
+! COL   1.   1; NUM; ;
+!               Iteration;
+!               The operations are performed in order of Iteration.
+!               Operations in iteration 1 are processed before those
+!               in iteration 2. Within iteration 1, the operations are
+!               processed in the order listed in the script;
+! COL   2.   5; ALPHA_NUM, UPPER; #;
+!               Field tag;
+!               Document record field code. # can be used to indicate
+!               truncation (e.g., 245## for 2451, 2452, 24501);
+! COL   3.   2; ALPHA; ;
+!               Format code;
+!               Record's format code (FMT field). # can be used as a
+!               wildcard. If left blank, no filtering for record format
+!               is performed;
+! COL   4.   1; ALPHA_NUM; ;
+!               First position filter;
+!               First position filter. If the position filter is not blank,
+!               then the operation is performed only if the first position
+!               in the field matches;
+! COL   5.   3; NUM; ;
+!               Position range start;
+!               Position range start. Used for operations on fixed fields
+!               to specify the position range. Note that field positions
+!               are counted started from zero;
+! COL   6.   3; ALPHA_NUM; ;
+!               Position range end;
+!               Position range end. Used for operations on fixed fields
+!               to specify the position range. Note that field positions
+!               are counted started from zero;
+! COL   7.   5; TEXT; ;
+!               Occurrence filter;
+!               Occurrence filter. Contains a five-digit number, or
+!               FIRST, LAST, NOT-F (not first), or NOT-L (not last).;
+! COL   8.  30; TEXT;;
+!               Operation code; ;
+!               Operation code. Following are the valid operation codes,
+!               a full description can be found in the How to Set Up a Script
+!               for the Correction of Records How To document. :
+!               ADD-FIELD
+!               CHANGE-FIELD
+!               CHANGE-FIRST-IND
+!               CHANGE-FIRST-IND-MATCH
+!               CHANGE-SECOND-IND
+!               CHANGE-SECOND-IND-MATCH
+!               CHANGE-SUBFIELD
+!               CONCATENATE-FIELDS
+!               COND-LOAD-VAL-POS
+!               COPY-FIELD
+!               COPY-SYSTEM-NUMBER
+!               DELETE-FIELD
+!               DELETE-FIELD-COND
+!               DELETE-FIXED-COND
+!               DELETE-SUBFIELD
+!               DELETE-SUBFIELD-DELIMITER
+!               EDIT-SUBFIELD-HYPHEN
+!               FIXED-CHANGE-VAL
+!               FIXED-CHANGE-VAL-RANGE
+!               FIXED-FIELD-EXTEND
+!               FIXED-RANGE-OP
+!               REPLACE-STRING
+!               SORT-FIELDS;
+! COL   9. 100; TEXT; ;
+!               Operation parameters;
+!               Operation parameters;
+!
+!   2   3  4  5   6    7                 8                           9
+!-!!!!!-!!-!-!!!-!!!-!!!!!-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!make temporary field FAD  from 008/22 and modify its contents
+1 008   BK                 COPY-FIELD                     FAD  ,L
+1 FAD   BK   000 000       FIXED-CHANGE-VAL-RANGE         #,$
+1 FAD   BK   001 001       FIXED-CHANGE-VAL-RANGE         #,$
+1 FAD   BK   002 002       FIXED-CHANGE-VAL-RANGE         #,a
+1 FAD   BK   003 021       FIXED-CHANGE-VAL-RANGE         #,~
+1 FAD   BK   023 023       FIXED-CHANGE-VAL-RANGE         #,@
+1 FAD   BK   024 040       FIXED-CHANGE-VAL-RANGE         #,~
+1 FAD   BK                 REPLACE-STRING                 ~,
+!change contents of FAD field to natural language
+1 FAD   BK                 REPLACE-STRING                 $$a-@,$$anespecifikováno
+1 FAD   BK                 REPLACE-STRING                 $$a|@,$$anespecifikováno
+1 FAD   BK                 REPLACE-STRING                 $$a @,$$anespecifikováno
+1 FAD   BK                 REPLACE-STRING                 $$aa@,$$apøedškolní dìti
+1 FAD   BK                 REPLACE-STRING                 $$ab@,$$amladší dìti
+1 FAD   BK                 REPLACE-STRING                 $$ac@,$$astarší dìti
+1 FAD   BK                 REPLACE-STRING                 $$ad@,$$amladiství
+1 FAD   BK                 REPLACE-STRING                 $$ae@,$$adospìlí
+1 FAD   BK                 REPLACE-STRING                 $$af@,$$aspecialisté
+1 FAD   BK                 REPLACE-STRING                 $$ag@,$$avšeobecné
+1 FAD   BK                 REPLACE-STRING                 $$aj@,$$adìti a mládež
+!Yet he same for FMT MU (music)
+1 008   MU                 COPY-FIELD                     FAD  ,L
+2 FAD   MU   000 000       FIXED-CHANGE-VAL-RANGE         #,$
+2 FAD   MU   001 001       FIXED-CHANGE-VAL-RANGE         #,$
+2 FAD   MU   002 002       FIXED-CHANGE-VAL-RANGE         #,a
+2 FAD   MU   003 021       FIXED-CHANGE-VAL-RANGE         #,~
+2 FAD   MU   023 023       FIXED-CHANGE-VAL-RANGE         #,@
+2 FAD   MU   024 040       FIXED-CHANGE-VAL-RANGE         #,~
+2 FAD   MU                 REPLACE-STRING                 ~,
+2 FAD   MU                 REPLACE-STRING                 $$a-@,$$anespecifikováno
+2 FAD   MU                 REPLACE-STRING                 $$a|@,$$anespecifikováno
+2 FAD   MU                 REPLACE-STRING                 $$a @,$$anespecifikováno
+2 FAD   MU                 REPLACE-STRING                 $$aa@,$$apøedškolní dìti
+2 FAD   MU                 REPLACE-STRING                 $$ab@,$$amladší dìti
+2 FAD   MU                 REPLACE-STRING                 $$ac@,$$astarší dìti
+2 FAD   MU                 REPLACE-STRING                 $$ad@,$$amladiství
+2 FAD   MU                 REPLACE-STRING                 $$ae@,$$adospìlí
+2 FAD   MU                 REPLACE-STRING                 $$af@,$$aspecialisté
+2 FAD   MU                 REPLACE-STRING                 $$ag@,$$avšeobecné
+2 FAD   MU                 REPLACE-STRING                 $$aj@,$$adìti a mládež
+!Yet he same for FMT VM (visual material)
+3 008   VM                 COPY-FIELD                     FAD  ,L
+3 FAD   VM   000 000       FIXED-CHANGE-VAL-RANGE         #,$
+3 FAD   VM   001 001       FIXED-CHANGE-VAL-RANGE         #,$
+3 FAD   VM   002 002       FIXED-CHANGE-VAL-RANGE         #,a
+3 FAD   VM   003 021       FIXED-CHANGE-VAL-RANGE         #,~
+3 FAD   VM   023 023       FIXED-CHANGE-VAL-RANGE         #,@
+3 FAD   VM   024 040       FIXED-CHANGE-VAL-RANGE         #,~
+3 FAD   VM                 REPLACE-STRING                 ~,
+3 FAD   VM                 REPLACE-STRING                 $$a-@,$$anespecifikováno
+3 FAD   VM                 REPLACE-STRING                 $$a|@,$$anespecifikováno
+3 FAD   VM                 REPLACE-STRING                 $$a @,$$anespecifikováno
+3 FAD   VM                 REPLACE-STRING                 $$aa@,$$apøedškolní dìti
+3 FAD   VM                 REPLACE-STRING                 $$ab@,$$amladší dìti
+3 FAD   VM                 REPLACE-STRING                 $$ac@,$$astarší dìti
+3 FAD   VM                 REPLACE-STRING                 $$ad@,$$amladiství
+3 FAD   VM                 REPLACE-STRING                 $$ae@,$$adospìlí
+3 FAD   VM                 REPLACE-STRING                 $$af@,$$aspecialisté
+3 FAD   VM                 REPLACE-STRING                 $$ag@,$$avšeobecné
+3 FAD   VM                 REPLACE-STRING                 $$aj@,$$adìti a mládež
