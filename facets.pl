@@ -139,6 +139,7 @@ else {
    #response - part 2 containg facet values
    foreach ( @facetCodes ) {
       my $f=$_;
+      next unless ( $results->{$f} );
       my $linesCount = () = $results->{$f} =~ /<value/g;  #not display facets with just 1 line/result
       next if ( $linesCount<2 );
       print '<facet type="'.$f.'" name="'.$facetNames{$f}.'" sort="'.$facetSort{$f}.'">'."\n";
