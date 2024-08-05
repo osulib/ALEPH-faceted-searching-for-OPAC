@@ -57,7 +57,8 @@ while( <FILESET> ) {
 if ( ($#ARGV + 1) != 2 ) { run_exemption('The script needs two command line arguments: 1. search set, 2. no. of records found.Exiting...');}
 my $searchSet=$ARGV[0];
 my $noOfRecs=$ARGV[1];
-unless ( isdigit($noOfRecs) ) { run_exemption('The 2nd command line argument standing for no. of records found must be a number (integer). Exiting...');}
+##unless ( isdigit($noOfRecs) ) { run_exemption('The 2nd command line argument standing for no. of records found must be a number (integer). Exiting...');}
+   unless ( $noOfRecs =~ m/^\d+$/ ) { run_exemption('The 2nd command line argument standing for no. of records found must be a number (integer). Exiting...');}
 
 
 our ( $bibBase, $bibBasePassword, $sid, $admin_mail, $alephe_scratch );
